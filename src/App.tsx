@@ -7,12 +7,15 @@ function App() {
   const [robotArray, setList] = useState(robotList)
   const [searchfield,setSearchfield] = useState('')
   function onSearchChange(event:any){
-    console.log(event.target?.value)
+    setSearchfield(event.target?.value)
   }
+  const filterRobotArr = robotArray.filter((robot:RobotInfo)=>{
+    return robot.name.toLowerCase().includes(searchfield.toLowerCase()) 
+  })
   return (
       <div className="m-10">
         <SearchBar searchChange={onSearchChange}/>
-        <RobotCardList robotList={robotArray} />
+        <RobotCardList robotList={filterRobotArr} />
       </div>
   )
 }
