@@ -16,10 +16,9 @@ function App() {
     fetch('https://jsonplaceholder.typicode.com/users')
     .then(res=> res.json())
     .then(res=>{
-      // console.log(res)
       setList(res)
     })
-  })
+  },[])
   return (
       <div className="m-10">
         <SearchBar searchChange={onSearchChange}/>
