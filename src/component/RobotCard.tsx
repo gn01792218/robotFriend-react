@@ -6,7 +6,7 @@ export declare interface RobotInfo{
     name:string,
     email:string,
 }
-const RobotCard = (props:Props) => {
+function RobotCard (props:Props) {
     const {img , name , email} = props.robotInfo
         return (
             <>

@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react'
 import RobotCardList from './component/RobotCardList'
-import SearchBar from '@/component/SearchBar'
-import Scroll from '@/component/Scroll'
+import SearchBar from './component/SearchBar'
+import Scroll from './component/Scroll'
 import { RobotInfo } from "./component/RobotCard"
-import { robotList } from '@/robotList'
 function App() {
   const [robotArray, setList] = useState([])
   const [searchfield,setSearchfield] = useState('')
