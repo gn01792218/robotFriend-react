@@ -5,7 +5,7 @@ interface Props{
 const RobotCardList = (props:Props) =>{
     const { robotList } = props
     return (
-        <div className="flex justify-center">
+        <div className="flex justify-center flex-wrap">
         {
             robotList.map((robot:RobotInfo)=>{
                 return (
