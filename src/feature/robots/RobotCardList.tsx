@@ -1,4 +1,4 @@
-import RobotCard,{ RobotInfo } from "../component/RobotCard"
+import RobotCard,{ RobotInfo } from "./RobotCard"
 interface Props{
     robotList:RobotInfo[],
 }

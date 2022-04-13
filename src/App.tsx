@@ -1,22 +1,31 @@
 import { useEffect, useState } from 'react'
-import RobotCardList from './component/RobotCardList'
-import SearchBar from './component/SearchBar'
-import Scroll from './component/Scroll'
-import { RobotInfo } from "./component/RobotCard"
+import { useAppSelector, useAppDispatch } from './app/hooks'
+import { setSearchField } from './feature/searchBar/searchBarSlice'
+import {requesRobotsPending,requesRobots,requesRobotsFailed} from './feature/robots/robotsSlice'
+import RobotCardList from './feature/robots/RobotCardList'
+import SearchBar from './feature/searchBar/SearchBar'
+import Scroll from './feature/Scroll'
+import { RobotInfo } from "./feature/robots/RobotCard"
 function App() {
-  const [robotArray, setList] = useState([])
-  const [searchfield,setSearchfield] = useState('')
+  //redux
+  const dispatch = useAppDispatch()
+  const robotArray = useAppSelector((state)=>state.robots.robots)
+  const searchField = useAppSelector((state)=>state.searchBar.searchField)
   function onSearchChange(event:any){
-    setSearchfield(event.target?.value)
+    dispatch(setSearchField(event.target?.value))
   }
   const filterRobotArr = robotArray.filter((robot:RobotInfo)=>{
-    return robot.name.toLowerCase().includes(searchfield.toLowerCase()) 
+    return robot.name.toLowerCase().includes(searchField.toLowerCase()) 
   })
   useEffect(()=>{
+    dispatch(requesRobotsPending())
     fetch('https://jsonplaceholder.typicode.com/users')
     .then(res=> res.json())
     .then(res=>{
-      setList(res)
+      dispatch(requesRobots(res))
+    })
+    .catch(err=>{
+      dispatch(requesRobotsFailed(err))
     })
   },[])
   return (
@@ -28,4 +37,4 @@ function App() {
       </div>
   )
 }
-export default App
+export default App;
