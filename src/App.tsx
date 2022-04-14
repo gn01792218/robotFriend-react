@@ -1,40 +1,23 @@
-import { useEffect, useState } from 'react'
-import { useAppSelector, useAppDispatch } from './app/hooks'
-import { setSearchField } from './feature/searchBar/searchBarSlice'
-import {requesRobotsPending,requesRobots,requesRobotsFailed} from './feature/robots/robotsSlice'
-import RobotCardList from './feature/robots/RobotCardList'
-import SearchBar from './feature/searchBar/SearchBar'
-import Scroll from './feature/Scroll'
-import { RobotInfo } from "./feature/robots/RobotCard"
+import React, { Suspense, lazy } from 'react'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import Home from './pages/Home'
+import Nav from './feature/Nav';
+const AboutLazy = lazy(() => import('./pages/About'))
+const RobotsFriendsLazy = lazy(() => import('./pages/RobotsFriends'))
 function App() {
-  //redux
-  const dispatch = useAppDispatch()
-  const robotArray = useAppSelector((state)=>state.robots.robots)
-  const searchField = useAppSelector((state)=>state.searchBar.searchField)
-  function onSearchChange(event:any){
-    dispatch(setSearchField(event.target?.value))
-  }
-  const filterRobotArr = robotArray.filter((robot:RobotInfo)=>{
-    return robot.name.toLowerCase().includes(searchField.toLowerCase()) 
-  })
-  useEffect(()=>{
-    dispatch(requesRobotsPending())
-    fetch('https://jsonplaceholder.typicode.com/users')
-    .then(res=> res.json())
-    .then(res=>{
-      dispatch(requesRobots(res))
-    })
-    .catch(err=>{
-      dispatch(requesRobotsFailed(err))
-    })
-  },[])
   return (
-      <div className="m-10">
-        <SearchBar searchChange={onSearchChange}/>
-        <Scroll>
-          <RobotCardList robotList={filterRobotArr} />
-        </Scroll>
-      </div>
+    <div className='p-20'>
+      <BrowserRouter>
+        <Nav />
+        <Suspense fallback={<div>Loading</div>}>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="about" element={<AboutLazy />} />
+            <Route path="robotsFriends" element={<RobotsFriendsLazy />} />
+          </Routes>
+        </Suspense>
+      </BrowserRouter>
+    </div>
   )
 }
 export default App;
