@@ -33,5 +33,5 @@ export const robotsSlice = createSlice({
 export const {requesRobotsPending,requesRobots,requesRobotsFailed} = robotsSlice.actions
 export const selectRobots = (state:RootState) => state.robots.robots
 export const selectRobotsIspending = (state:RootState) => state.robots.isPending
-export const selectRobotsError = (state:RootState) => state.robots.robots.error
+export const selectRobotsError = (state:RootState) => state.robots.error
 export default robotsSlice.reducer
