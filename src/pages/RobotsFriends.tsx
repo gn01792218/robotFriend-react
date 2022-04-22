@@ -11,7 +11,7 @@ function RobotsFriends(){
   const dispatch = useAppDispatch()
   const robotArray = useAppSelector((state) => state.robots.robots)
   const searchField = useAppSelector((state) => state.searchBar.searchField)
-  function onSearchChange(event: any) {
+  function onSearchChange(event:React.ChangeEvent<HTMLInputElement>) {
     dispatch(setSearchField(event.target?.value))
   }
   const filterRobotArr = robotArray.filter((robot: RobotInfo) => {

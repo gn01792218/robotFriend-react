@@ -1,5 +1,8 @@
+import React from "react"
+
 interface Props{
-    searchChange:Function,
+    // searchChange:Function,
+    searchChange(event:React.SyntheticEvent<HTMLInputElement>):void
 }
 function SearchBar (props:Props){
     const {searchChange} = props
